@@ -1,6 +1,6 @@
 {
   "name": "fizz",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A Flux compliant library for a unidirectional data flow.",
   "keywords": "extension Error",
   "author": "Marcus Kruse",
