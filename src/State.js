@@ -1,29 +1,19 @@
 // @flow
 
-import {ObjectSnapshot} from "ObjectSnapshot";
-
 class State {
-  _state: ObjectSnapshot;
+  /* interface
 
-  constructor(object: any) {
-    this._state = new ObjectSnapshot(object);
-  }
+  constructor(object: object)
 
-  data(keyPath: string) {
-    return this._state.immutable(keyPath);
-  }
+  data(keyPath: string = EMPTY_STRING): object
 
-  get object() {
-    return this._state.observable();
-  }
+  get object(): object
 
-  hasChanges() {
-    return this._state.hasChanges();
-  }
+  hasChanges(): boolean
 
-  commit() {
-    this._state.commit();
-  }
+  commit(): void
+
+  */
 }
 
 export {State};

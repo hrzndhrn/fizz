@@ -1,16 +1,23 @@
 // @flow
 
-import {State} from "./State";
+import {StateObjectSnapshot as State} from "./StateObjectSnapshot";
+
+type Callback = (x:Object) => void;
+type Method = (x:Object) => void;
 
 let stores: Array<Store> = [];
 let busy = false;
 
+let defaultMethod = function(obj: Object) {
+  Object.assign(this, obj);
+}
+
 class Store {
   _state: State;
-  _methods: Map<string, any> = new Map();
-  _onChangeCallbacks: Array = [];
+  _methods: Map<string, Method> = new Map();
+  _onChangeCallbacks: Array<Callback> = [];
 
-  constructor(object:any) {
+  constructor(object:Object) {
     this._state = new State(object);
     stores.push(this);
   }
@@ -19,7 +26,7 @@ class Store {
     return this._state.data();
   }
 
-  register(actionName: ?string, method) {
+  register(actionName: ?string, method: Method = defaultMethod) {
     if (actionName == null) {
       throw new Error("Action name is undefined!");
     }
@@ -29,7 +36,7 @@ class Store {
     return this;
   }
 
-  dispatch(actionName, payload) {
+  dispatch(actionName: string, payload: any) {
     if (this._methods.has(actionName)) {
       if (busy === true) {
         throw new Error("Nested dispatch call detected.");
@@ -37,15 +44,17 @@ class Store {
 
       busy = true;
 
-      this._dispatch(actionName, payload);
+      let method = this._methods.get(actionName);
+      // $FlowFixMe
+      this._dispatch(method, payload);
 
       busy = false;
     }
   }
 
-  _dispatch(actionName, payload) {
+  _dispatch(method: Method, payload: Object) {
     // apply the store function
-    this._methods.get(actionName).apply(this._state.object, [payload]);
+    method.apply(this._state.object(), [payload]);
     if (this._state.hasChanges()) {
       this._onChangeCallbacks.forEach(function(callback) {
         callback(this._state.data());
@@ -55,7 +64,7 @@ class Store {
     this._state.commit();
   }
 
-  onChange(callback, scope = window) {
+  onChange(callback: Callback, scope: Object = window) {
     this._onChangeCallbacks.push(callback.bind(scope));
     return this;
   }

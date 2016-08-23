@@ -1,8 +1,9 @@
 //@flow
+
 "use strict";
 
 import {test} from "tape";
-import {setPlanet} from "./actions/helloPlanet";
+import {aaSetPlanet, abSetPlanet} from "./actions/helloPlanet";
 import {helloPlanet as store} from "./stores/helloPlanet";
 import {view} from "./views/helloPlanet";
 
@@ -15,7 +16,8 @@ test("fizz: hello panet", function(t) {
 
   let time1 = view.updated;
 
-  setPlanet("mars");
+  // console.log("actions " + actions);
+  aaSetPlanet("mars");
 
   t.deepEqual( store.state(), {planet:"mars"},
       "storeHelloPlanet.state() === {'planet':'mars'}");
@@ -26,7 +28,7 @@ test("fizz: hello panet", function(t) {
 
   t.true(time2 > time1, `time between updates ${time2 - time1} ms`);
 
-  setPlanet("mars");
+  aaSetPlanet("mars");
 
   t.deepEqual( store.state(), {planet:"mars"},
       "storeHelloPlanet.state() === {'planet':'mars'}");
@@ -36,6 +38,13 @@ test("fizz: hello panet", function(t) {
   let time3 = view.updated;
 
   t.true(time3 === time2, "no updated in view");
+
+  abSetPlanet({"planet": "pluto"});
+
+  t.deepEqual( store.state(), {planet:"pluto"},
+      "storeHelloPlanet.state() === {'planet':'pluto'}");
+
+  t.equal( view.render(), "Hello, pluto!", "Hello, pluto!");
 
   // --------------------------------------------------------------------------
   t.end();

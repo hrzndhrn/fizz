@@ -4,13 +4,18 @@ import {dispatch} from "./dispatcher";
 
 let action: {[key: string]: string} = {};
 
+let defaultMethod = (obj: Object): Object => obj;
+
 class Action {
   _name: string;
-  _method; // @todo Flow?!
+  _method: any; // @todo Flow?!
 
-  constructor(name: string, method) {
+  constructor(name: string, method: any = defaultMethod) {
     this._name = name;
     this._method = method;
+
+    console.log("--------");
+    console.log(method);
 
     if (action[name] === undefined) {
       action[name] = name;
@@ -24,12 +29,12 @@ class Action {
     return this.execute.bind(this);
   }
 
-  execute(...args) {
+  execute(...args: Array<any>) {
     let payload = this._method.apply( window, args);
     dispatch(this._name, payload);
   }
 
-  static create(name: string, method) {
+  static create(name: string, method: any) {
     return new Action(name, method).handler();
   }
 }

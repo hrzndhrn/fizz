@@ -2,10 +2,11 @@
 
 import {Action} from "../../src/fizz";
 
-let setPlanet = Action.create("SET_PLANET", function(planet: string) {
-  console.log("--- Action ---");
+let aaSetPlanet = Action.create("AA_SET_PLANET", function(planet: string) {
   return {planet}
 });
 
-export {setPlanet};
+let abSetPlanet = Action.create("AB_SET_PLANET");
+
+export {aaSetPlanet, abSetPlanet};
 
