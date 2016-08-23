@@ -7,6 +7,10 @@
   "email": "marcus.kruse@vivai.de",
   "license": "MIT",
   "main": "dist/fizz.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vivai/fizz"
+  },
   "scripts": {
     "prepublish": "gulp publish"
   },
