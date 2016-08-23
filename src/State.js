@@ -22,7 +22,7 @@ class State {
   }
 
   commit() {
-    this._state.snapshot();
+    this._state.commit();
   }
 }
 
