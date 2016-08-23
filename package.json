@@ -1,5 +1,5 @@
 {
-  "name": "fizz",
+  "name": "fizz-flux",
   "version": "0.1.1",
   "description": "A Flux compliant library for a unidirectional data flow.",
   "keywords": "extension Error",

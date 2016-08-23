@@ -14,9 +14,6 @@ class Action {
     this._name = name;
     this._method = method;
 
-    console.log("--------");
-    console.log(method);
-
     if (action[name] === undefined) {
       action[name] = name;
     } else {
