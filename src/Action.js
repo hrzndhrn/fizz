@@ -3,6 +3,7 @@
 import {dispatch} from "./dispatcher";
 
 let action: {[key: string]: string} = {};
+let busy = false;
 
 function defaultMethod( obj: Object): Object {
   return obj;
@@ -29,9 +30,30 @@ class Action {
   }
 
   execute() {
-    let payload = this._method.apply( window, arguments);
-    dispatch(this._name, payload);
-    return payload;
+    if (busy) {
+      busy = false;
+      throw new Error("An action can not call an action!");
+    } else {
+      busy = true;
+    }
+
+    let payload, promise;
+    let result = this._method.apply( window, arguments);
+
+    if (result instanceof Promise) {
+      promise = result;
+      let name = this._name;
+      promise.then(function(payload) {
+        dispatch(name, payload);
+      });
+    } else {
+      payload = result;
+      dispatch(this._name, payload);
+    }
+
+    busy = false;
+
+    return result;
   }
 
   // $FlowFixMe

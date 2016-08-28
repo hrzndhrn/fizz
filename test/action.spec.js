@@ -16,12 +16,15 @@ test("fizz: Action", function(t) {
   });
 
   // type BadValue = (x:number) => void;
-  let badValue = Action.create("BAD_VALUE", function(step: number) {
-    return {step};
+  let badValue = Action.create("BAD_VALUE", function(value: number) {
+    return setValue(value);
   });
 
   setValue(1);
-  badValue(1);
+
+  t.throws( function() {
+    badValue(1);
+  }, /.*An.action.can.not.call.an.action.*/);
 
   // --------------------------------------------------------------------------
   t.end();
