@@ -4,6 +4,7 @@ import {StateObjectSnapshot as State} from "./StateObjectSnapshot";
 
 type Callback = (x:Object) => void;
 type Method = (x:Object) => void;
+type Data = {[key: string]: any};
 
 let stores: Array<Store> = [];
 let busy = false;
@@ -17,7 +18,7 @@ class Store {
   _methods: Map<string, Method> = new Map();
   _onChangeCallbacks: Array<Callback> = [];
 
-  constructor(object:Object) {
+  constructor(object: Data) {
     this._state = new State(object);
     stores.push(this);
   }
