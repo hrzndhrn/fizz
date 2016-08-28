@@ -1,8 +1,7 @@
 // @flow
 
 import {stores} from "./Store";
-
-type Payload = {[key: string]: any};
+import type {Payload} from "./types";
 
 function dispatch(action: string, payload: Payload) {
   stores.forEach((store) => store.dispatch(action, payload));

@@ -1,6 +1,5 @@
 // @flow
 
-import {Store} from "./Store";
-import {Action, action} from "./Action";
-
-export {Store, Action, action}
+export {Store} from "./Store";
+export {Action, action} from "./Action";
+export type {Payload} from "./types";

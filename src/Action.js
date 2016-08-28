@@ -8,9 +8,9 @@ let defaultMethod = (obj: Object): Object => obj;
 
 class Action {
   _name: string;
-  _method: any; // @todo Flow?!
+  _method: Function; // @todo Flow?!
 
-  constructor(name: string, method: any = defaultMethod) {
+  constructor(name: string, method: Function = defaultMethod) {
     this._name = name;
     this._method = method;
 
@@ -22,7 +22,7 @@ class Action {
 
   }
 
-  handler() {
+  handler(): Function {
     return this.execute.bind(this);
   }
 
@@ -30,6 +30,8 @@ class Action {
     let payload = this._method.apply( window, args);
     dispatch(this._name, payload);
   }
+
+
 
   static create(name: string, method: any) {
     return new Action(name, method).handler();
