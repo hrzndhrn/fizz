@@ -1,9 +1,10 @@
 // @flow
 
-import {dispatch} from "./dispatcher";
+import {dispatch} from './dispatcher';
 
 let action: {[key: string]: string} = {};
 let busy = false;
+let create = false;
 
 function defaultMethod( obj: Object): Object {
   return obj;
@@ -14,6 +15,10 @@ class Action {
   _method: Function; // @todo Flow?!
 
   constructor(name: string, method: Function) {
+    if (!create) {
+      throw new Error('Use Action.create to create an action.');
+    }
+
     this._name = name;
     this._method = method;
 
@@ -32,7 +37,7 @@ class Action {
   execute() {
     if (busy) {
       busy = false;
-      throw new Error("An action can not call an action!");
+      throw new Error('An action can not call an action!');
     } else {
       busy = true;
     }
@@ -58,8 +63,10 @@ class Action {
 
   // $FlowFixMe
   static create<U:Function>(name: string, method: U = defaultMethod): U {
+    create = true;
     // $FlowFixMe
     let handler:U = new Action(name, method).handler();
+    create = false;
     return handler;
   }
 }

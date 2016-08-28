@@ -1,6 +1,6 @@
 // @flow
 
-import {StateObjectSnapshot as State} from "./StateObjectSnapshot";
+import {StateObjectSnapshot as State} from './StateObjectSnapshot';
 
 type Callback = (x:Object) => void;
 type Method = (x:Object) => void;
@@ -29,7 +29,7 @@ class Store {
 
   register(actionName: ?string, method: Method = defaultMethod) {
     if (actionName == null) {
-      throw new Error("Action name is undefined!");
+      throw new Error('Action name is undefined!');
     }
 
     this._methods.set(actionName, method);
@@ -40,7 +40,7 @@ class Store {
   dispatch(actionName: string, payload: any) {
     if (this._methods.has(actionName)) {
       if (busy === true) {
-        throw new Error("Nested dispatch call detected.");
+        throw new Error('Nested dispatch call detected.');
       }
 
       busy = true;

@@ -1,8 +1,8 @@
 // @flow
 
-import {ObjectSnapshot} from "ObjectSnapshot";
-import {State} from "./State";
-import {EMPTY_STRING} from "jsz-string";
+import {ObjectSnapshot} from 'ObjectSnapshot';
+import {State} from './State';
+import {EMPTY_STRING} from 'jsz-string';
 
 class StateObjectSnapshot extends State{
   _state: ObjectSnapshot;
