@@ -4,6 +4,8 @@
 import {test} from "tape";
 import {Action, action} from "../src/fizz";
 
+/* eslint-disable no-magic-numbers */
+
 test("fizz: Action.handler", function(t) {
 
   t.ok(typeof Action === "function",
@@ -20,7 +22,7 @@ test("fizz: Action.handler", function(t) {
 
   let setValueHandler = setValue.handler();
 
-  setValueHandler("mars");
+  setValueHandler(1);
 
   // --------------------------------------------------------------------------
   t.end();
