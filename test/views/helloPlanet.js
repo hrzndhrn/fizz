@@ -13,7 +13,6 @@ let view = {
 };
 
 store.onChange( (state) => {
-  console.log('>>>>>>>>> onChange');
   view.state = state;
   view.updated = Date.now();
 });

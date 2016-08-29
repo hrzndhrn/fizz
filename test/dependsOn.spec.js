@@ -35,13 +35,10 @@ test.only('fizz: dependsOn', function(t) {
   t.deepEqual(storeSecond.state(), {foo:1}, 'storeFirst inital state');
 
   storeSecond.register(setFoo, function(payload) {
-    console.log('storeSecond: dispatch setFoo');
     this.foo = payload.foo;
   });
 
   storeFirst.register(setFoo, function() {
-    console.log('storeFirst: dispatch setFoo');
-    console.log('storeSecond.stat().foo: ' + storeSecond.state().foo);
     this.bar = storeSecond.state().foo +  1;
   });
 
