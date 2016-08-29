@@ -2,13 +2,13 @@
 'use strict';
 
 import {test} from 'tape';
-import {action,Action,Store} from '../src/fizz';
+import {Action,Store} from '../src/fizz';
 
 /* eslint-disable no-magic-numbers */
 
 test('fizz: promise', function(t) {
 
-  let setValue = Action.create('PROMISE_SET_VALUE', function(value: number) {
+  let setValue = Action.create(function(value: number) {
     return new Promise(function(resolve) {
       window.setTimeout( function() {
         resolve({value});
@@ -19,7 +19,7 @@ test('fizz: promise', function(t) {
 
   let store = new Store({
     data:1
-  }).register( action.PROMISE_SET_VALUE, function(response) {
+  }).register(setValue, function(response) {
     this.data = response.value;
   });
 

@@ -1,13 +1,13 @@
 // @flow
 
 import {Store} from '../../src/fizz';
-import {action} from '../../src/fizz';
+import {aaSetPlanet, abSetPlanet} from '../actions/helloPlanet';
 
 let helloPlanet: Store = new Store({
   'planet': 'earth'
-}).register(action.AA_SET_PLANET, function(state) {
+}).register(aaSetPlanet, function(state) {
   console.log('Store helloPlanet: SET_VALUE');
   this.planet = state.planet;
-}).register(action.AB_SET_PLANET);
+}).register(abSetPlanet);
 
 export {helloPlanet}

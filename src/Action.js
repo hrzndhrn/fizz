@@ -1,11 +1,12 @@
 // @flow
 
 import {dispatch} from './dispatcher';
+import {uid} from 'jsz-uid';
 
 let action: {[key: string]: string} = {};
 let busy = false;
 let create = false;
-let actions: Set<Function> = new Set();
+let actionIds: Map<Function,string> = new Map();
 
 function defaultMethod( obj: Object): Object {
   return obj;
@@ -14,6 +15,7 @@ function defaultMethod( obj: Object): Object {
 class Action {
   _name: string;
   _method: Function; // @todo Flow?!
+  _handler: Function;
 
   constructor(name: string, method: Function) {
     if (!create) {
@@ -29,10 +31,11 @@ class Action {
       throw new Error(`An action with name ${name} allready exists!`);
     }
 
+    this._handler = this.execute.bind(this);
   }
 
   handler(): Function {
-    return this.execute.bind(this);
+    return this._handler;
   }
 
   execute() {
@@ -63,15 +66,18 @@ class Action {
   }
 
   // $FlowFixMe
-  static create<U:Function>(name: string, method: U = defaultMethod): U {
+  static create<U:Function>(method: U = defaultMethod): U {
+    let id = uid();
+
     create = true;
     // $FlowFixMe
-    let handler:U = new Action(name, method).handler();
+    let handler:U = new Action(id, method).handler();
     create = false;
-    actions.add(handler);
-    console.log('>>>>>>>>>> ' + actions.size);
+
+    actionIds.set(handler, id);
+
     return handler;
   }
 }
 
-export {Action, action};
+export {Action, action, actionIds};

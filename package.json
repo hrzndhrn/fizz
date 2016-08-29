@@ -55,6 +55,7 @@
     "watchify": "^3.7.0"
   },
   "dependencies": {
-    "ObjectSnapshot": "^0.1.1"
+    "ObjectSnapshot": "^0.1.1",
+    "jsz-uid": "^0.2.0"
   }
 }

@@ -11,14 +11,15 @@ test('fizz: Action', function(t) {
   t.ok(typeof Action === 'function',
       'Class Action is imported.');
 
-  let setValue = Action.create('SET_VALUE', function(value: number) {
+  let setValue = Action.create(function(value: number) {
     return {value};
   });
 
   // type BadValue = (x:number) => void;
-  let badValue = Action.create('BAD_VALUE', function(value: number) {
+  let badValue = Action.create(function(value: number) {
     return setValue(value);
   });
+
 
   setValue(1);
 
