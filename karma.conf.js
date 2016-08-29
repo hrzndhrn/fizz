@@ -1,5 +1,5 @@
 // Karma configuration
-"use strict"
+'use strict'
 
 /* eslint-disable no-magic-numbers */
 
@@ -7,13 +7,13 @@ module.exports = function (config) {
   config.set({
 
     // Base path that will be used to resolve all patterns (eg. files, exclude).
-    basePath: "",
+    basePath: '',
 
     // Start these browsers.
     // Available browser launchers:
     //   https://npmjs.org/browse/keyword/karma-launcher
     browsers: [
-      "Chrome",
+      'Chrome',
       // "Safari",
       // "Firefox",
       // "PhantomJS"
@@ -22,25 +22,25 @@ module.exports = function (config) {
     // Frameworks to use
     // Available frameworks:
     //   https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ["tap", "browserify"],
+    frameworks: ['tap', 'browserify'],
 
     // List of files / patterns to load in the browser.
     files: [
-      "node_modules/babel-polyfill/dist/polyfill.js",
-      "test/*.spec.js"
+      'node_modules/babel-polyfill/dist/polyfill.js',
+      'test/*.spec.js'
     ],
 
     // List of files to exclude.
     exclude: [
-      "src/error.js"
+      'src/error.js'
     ],
 
     // Preprocess matching files before serving them to the browser.
     // Available preprocessors:
     //   https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      "srcjs/**/*.js": ["browserify"],
-      "test/**/*.js": ["browserify"]
+      'srcjs/**/*.js': ['browserify'],
+      'test/**/*.js': ['browserify']
     },
 
     // Browserify configuration
@@ -50,11 +50,11 @@ module.exports = function (config) {
       debug: true,
       transform: [
         [
-          "babelify"
+          'babelify'
         ], [
-          "browserify-istanbul",
+          'browserify-istanbul',
           {
-            instrumenter: require("isparta")
+            instrumenter: require('isparta')
           }
         ]
       ]
@@ -66,11 +66,11 @@ module.exports = function (config) {
     coverageReporter: {
       reporters: [
         // {type: "text"},
-        {type: "text-summary"},
-        {type: "html", dir: "coverage/html"},
-        {type: "lcov", dir: "coverage/lcov"},
-        {type: "json", dir: "coverage/json",
-         file: "coverage.json"}
+        {type: 'text-summary'},
+        {type: 'html', dir: 'coverage/html'},
+        {type: 'lcov', dir: 'coverage/lcov'},
+        {type: 'json', dir: 'coverage/json',
+         file: 'coverage.json'}
       ]
     },
 
@@ -80,7 +80,7 @@ module.exports = function (config) {
     //   https://npmjs.org/browse/keyword/karma-reporter
     // Coverage is from karma-coverage and provides Istanbul code coverage
     // reports.
-    reporters: ["mocha", "coverage"],
+    reporters: ['mocha', 'coverage'],
 
     // web server port
     port: 9876,
