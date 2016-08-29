@@ -1,3 +1,8 @@
+0.1.3 / 2016-08-29
+------------------
+- Use of internal ids.
+- Exception for new Action. Use Action.create to create an action.
+
 0.1.2 / 2016-08-28
 ------------------
 - Action can return promise.

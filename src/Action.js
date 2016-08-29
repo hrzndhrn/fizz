@@ -3,33 +3,26 @@
 import {dispatch} from './dispatcher';
 import {uid} from 'jsz-uid';
 
-let action: {[key: string]: string} = {};
 let busy = false;
 let create = false;
-let actionIds: Map<Function,string> = new Map();
+export let actionIds: Map<Function,string> = new Map();
 
 function defaultMethod( obj: Object): Object {
   return obj;
 }
 
-class Action {
-  _name: string;
+export class Action {
+  _id: string;
   _method: Function; // @todo Flow?!
   _handler: Function;
 
-  constructor(name: string, method: Function) {
+  constructor(id: string, method: Function) {
     if (!create) {
       throw new Error('Use Action.create to create an action.');
     }
 
-    this._name = name;
+    this._id = id;
     this._method = method;
-
-    if (action[name] === undefined) {
-      action[name] = name;
-    } else {
-      throw new Error(`An action with name ${name} allready exists!`);
-    }
 
     this._handler = this.execute.bind(this);
   }
@@ -51,13 +44,13 @@ class Action {
 
     if (result instanceof Promise) {
       promise = result;
-      let name = this._name;
+      let id = this._id;
       promise.then(function(payload) {
-        dispatch(name, payload);
+        dispatch(id, payload);
       });
     } else {
       payload = result;
-      dispatch(this._name, payload);
+      dispatch(this._id, payload);
     }
 
     busy = false;
@@ -79,5 +72,3 @@ class Action {
     return handler;
   }
 }
-
-export {Action, action, actionIds};
