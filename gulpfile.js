@@ -4,6 +4,7 @@
 // modules
 //
 const gulp = require('gulp'),
+      watch = require('gulp-watch'),
       babel = require('gulp-babel'),
       sourcemaps = require('gulp-sourcemaps'),
       eslint = require('gulp-eslint'),
@@ -62,6 +63,14 @@ let mode = MODE.DEVELOPMENT;
 
 function isDevelopmentMode() {
   return mode === MODE.DEVELOPMENT;
+}
+
+//------------------------------------------------------------------------------
+// util
+//
+function clear(done) {
+  process.stdout.write('\u001b[2J\u001b[0;0H');
+  if(done) done();
 }
 
 //------------------------------------------------------------------------------
@@ -150,6 +159,17 @@ gulp.task('build',
 );
 
 gulp.task('check', gulp.series('check:eslint', 'check:flow'));
+
+gulp.task('watch:check', watchCheck);
+function watchCheck(done) {
+  let src = [allJs, exclude.nodeModules, exclude.dist, exclude.coverage];
+  watch(src, function() {
+    clear();
+    checkEslint();
+    checkFlow();
+  });
+  done();
+}
 
 gulp.task('publish',
   gulp.series('mode:publish', 'clean', 'check', 'build:js', 'copy:flow'));

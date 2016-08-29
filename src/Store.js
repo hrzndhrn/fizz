@@ -1,5 +1,4 @@
 // @flow
-
 import {StateObjectSnapshot as State} from './StateObjectSnapshot';
 import {actionIds} from './Action';
 
@@ -18,6 +17,7 @@ class Store {
   _state: State;
   _methods: Map<string, Method> = new Map();
   _onChangeCallbacks: Array<Callback> = [];
+  _dependsOn: Set<Store> = new Set();
 
   constructor(object: Data) {
     this._state = new State(object);
@@ -70,6 +70,26 @@ class Store {
   onChange(callback: Callback, scope: Object = window) {
     this._onChangeCallbacks.push(callback.bind(scope));
     return this;
+  }
+
+  dependsOn(store: Store) {
+    this._dependsOn.add(store);
+
+    stores = stores.filter((store) => store !== this);
+    stores.push(this);
+
+    this._checkCircularDependency();
+  }
+
+  _checkCircularDependency(dependedStores: Set<Store> = new Set()) {
+    if (dependedStores.has(this)) {
+      throw new Error('Circular dependency detected!');
+    }
+
+    dependedStores.add(this);
+
+    this._dependsOn.forEach(
+        (store) => store._checkCircularDependency(dependedStores));
   }
 }
 
