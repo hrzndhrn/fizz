@@ -1,43 +1,51 @@
-"use strict";
+'use strict';
 
 //------------------------------------------------------------------------------
 // modules
 //
-const gulp = require("gulp"),
-      babel = require("gulp-babel"),
-      sourcemaps = require("gulp-sourcemaps"),
-      eslint = require("gulp-eslint"),
-      flow = require("gulp-flowtype"),
-      del = require("del"),
-      karma = require("karma"),
-      rename = require("gulp-rename"),
-      util = require("gulp-util");
+const gulp = require('gulp'),
+      babel = require('gulp-babel'),
+      sourcemaps = require('gulp-sourcemaps'),
+      eslint = require('gulp-eslint'),
+      flow = require('gulp-flowtype'),
+      del = require('del'),
+      karma = require('karma'),
+      rename = require('gulp-rename'),
+      path = require('path'),
+      util = require('gulp-util');
 
 /* eslint-disable no-unused-vars */
 /* This const are not used in this gulpfile. This is just a workaround for
  * npm-check and modules used by karma.
  */
-const babelify = require("babelify"),
-      browserify = require("browserify"),
-      browserifyIstanbul = require("browserify-istanbul"),
-      watchify = require("watchify");
+const babelify = require('babelify'),
+      browserify = require('browserify'),
+      browserifyIstanbul = require('browserify-istanbul'),
+      watchify = require('watchify');
 /* eslint-enable no-unused-vars */
 
 //------------------------------------------------------------------------------
 // config
 //
-const src = {
-        "main": "src/fizz.js",
-        "js": "src/**/*.js",
-        "test": "test/**/*.js"
+const allJs = '**/*.js',
+      mainFileName = 'fizz.js',
+      exclude = {
+        nodeModules: '!node_modules/**',
+        dist: '!dist/**',
+        coverage: '!coverage/**'
       },
-      target = "dist/",
-      coverage = "coverage/",
+      src = {
+        'main': path.join('src', mainFileName),
+        'js': path.join('src', allJs),
+        'test': path.join('test', allJs)
+      },
+      dist = 'dist/',
+      coverage = 'coverage/',
       options = {
         // babel: see .babelrc
         flow: {},
         karma: {
-          configFile: __dirname + "/karma.conf.js"
+          configFile: path.join(__dirname, 'karma.conf.js')
         }
       };
 
@@ -45,9 +53,9 @@ const src = {
 // globals
 //
 const MODE = {
-  PRODUCTION: "production",
-  DEVELOPMENT: "development",
-  PUBLISH: "publish"
+  PRODUCTION: 'production',
+  DEVELOPMENT: 'development',
+  PUBLISH: 'publish'
 };
 
 let mode = MODE.DEVELOPMENT;
@@ -59,18 +67,13 @@ function isDevelopmentMode() {
 //------------------------------------------------------------------------------
 // check
 //
-gulp.task("check:eslint", checkEslint);
+gulp.task('check:eslint', checkEslint);
 function checkEslint() {
-  var streamSrc = [src.js];
-
-  if (isDevelopmentMode()) {
-    streamSrc.push(src.test);
-  }
-
-  var stream =  gulp.src(streamSrc)
+  let src = [allJs, exclude.nodeModules, exclude.dist, exclude.coverage];
+  let stream = gulp.src(src)
     .pipe(eslint({
       rules: {
-        "no-console": isDevelopmentMode() ? "off" : "error"
+        'no-console': isDevelopmentMode() ? 'off' : 'error'
       }
     }))
     .pipe(eslint.format());
@@ -82,7 +85,7 @@ function checkEslint() {
   return stream;
 }
 
-gulp.task("check:flow", checkFlow);
+gulp.task('check:flow', checkFlow);
 function checkFlow() {
   options.flow.abort = isDevelopmentMode() ? false : true;
   return gulp.src([src.js, src.test])
@@ -92,27 +95,27 @@ function checkFlow() {
 //------------------------------------------------------------------------------
 // build: javascript: ES6 -> babel -> ES5
 //
-gulp.task("build:js", buildJs);
+gulp.task('build:js', buildJs);
 function buildJs() {
   return gulp.src(src.js)
     .pipe(sourcemaps.init())
     .pipe(babel())
     // .pipe(sourcemaps.write(".")) // external soure map
     .pipe(sourcemaps.write()) // internal soure map
-    .pipe(gulp.dest(target));
+    .pipe(gulp.dest(dist));
 }
 
-gulp.task("copy:flow", copyFlow);
+gulp.task('copy:flow', copyFlow);
 function copyFlow() {
   return gulp.src(src.js)
-    .pipe(rename({"extname": ".js.flow"}))
-    .pipe(gulp.dest(target));
+    .pipe(rename({'extname': '.js.flow'}))
+    .pipe(gulp.dest(dist));
 }
 
 //------------------------------------------------------------------------------
 // test
 //
-gulp.task("test", gulp.series(testKarma));
+gulp.task('test', gulp.series(testKarma));
 function testKarma(done) {
   new karma.Server({
     configFile: options.karma.configFile,
@@ -123,7 +126,7 @@ function testKarma(done) {
 //------------------------------------------------------------------------------
 // change mode
 //
-gulp.task("mode:publish", changeMode(MODE.PUBLISH));
+gulp.task('mode:publish', changeMode(MODE.PUBLISH));
 function changeMode(newMode) {
   return function(done) {
     mode = newMode;
@@ -135,23 +138,23 @@ function changeMode(newMode) {
 //------------------------------------------------------------------------------
 // main tasks
 //
-gulp.task("clean", clean);
+gulp.task('clean', clean);
 function clean() {
-  return del([target, coverage]);
+  return del([dist, coverage]);
 }
 
-gulp.task("build",
-  gulp.series( "clean",
-    gulp.parallel("build:js")
+gulp.task('build',
+  gulp.series( 'clean',
+    gulp.parallel('build:js')
   )
 );
 
-gulp.task("check", gulp.series("check:eslint", "check:flow"));
+gulp.task('check', gulp.series('check:eslint', 'check:flow'));
 
-gulp.task("publish",
-  gulp.series("mode:publish", "clean", "check", "build:js", "copy:flow"));
+gulp.task('publish',
+  gulp.series('mode:publish', 'clean', 'check', 'build:js', 'copy:flow'));
 
-gulp.task("default", function(done) {
-  util.log("Available tasks: build, check, ,test, clean");
+gulp.task('default', function(done) {
+  util.log('Available tasks: build, check, ,test, clean');
   done();
 });

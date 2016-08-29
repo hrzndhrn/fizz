@@ -1,6 +1,6 @@
 // @flow
 
-import {helloPlanet as store} from "../stores/helloPlanet";
+import {helloPlanet as store} from '../stores/helloPlanet';
 
 let view = {
   state: store.state(),
@@ -13,7 +13,7 @@ let view = {
 };
 
 store.onChange( (state) => {
-  console.log(">>>>>>>>> onChange");
+  console.log('>>>>>>>>> onChange');
   view.state = state;
   view.updated = Date.now();
 });

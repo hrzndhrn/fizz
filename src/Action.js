@@ -5,6 +5,7 @@ import {dispatch} from './dispatcher';
 let action: {[key: string]: string} = {};
 let busy = false;
 let create = false;
+let actions: Set<Function> = new Set();
 
 function defaultMethod( obj: Object): Object {
   return obj;
@@ -67,6 +68,8 @@ class Action {
     // $FlowFixMe
     let handler:U = new Action(name, method).handler();
     create = false;
+    actions.add(handler);
+    console.log('>>>>>>>>>> ' + actions.size);
     return handler;
   }
 }
