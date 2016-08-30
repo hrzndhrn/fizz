@@ -8,6 +8,7 @@ type Data = {[key: string]: any};
 
 let stores: Array<Store> = [];
 let busy = false;
+let create = false;
 
 let defaultMethod = function(obj: Object) {
   Object.assign(this, obj);
@@ -20,6 +21,10 @@ class Store {
   _dependsOn: Set<Store> = new Set();
 
   constructor(object: Data) {
+    if (!create) {
+      throw new Error('Issue #1 is not completed!');
+    }
+
     this._state = new State(object);
     stores.push(this);
   }
@@ -90,6 +95,13 @@ class Store {
 
     this._dependsOn.forEach(
         (store) => store._checkCircularDependency(dependedStores));
+  }
+
+  static create(data: Data): Store {
+    create = true;
+    let store = new Store(data);
+    create = false;
+    return store;
   }
 }
 

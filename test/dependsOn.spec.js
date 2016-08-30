@@ -6,7 +6,7 @@ import {Action,Store} from '../src/fizz';
 
 /* eslint-disable no-magic-numbers */
 
-test.only('fizz: dependsOn', function(t) {
+test('fizz: dependsOn', function(t) {
 
   let initialFoo = 1;
   let dependsOn = false;
@@ -23,11 +23,11 @@ test.only('fizz: dependsOn', function(t) {
     return {foo: value};
   });
 
-  let storeFirst = new Store({
+  let storeFirst = Store.create({
     bar: initialFoo + 1
   });
 
-  let storeSecond = new Store({
+  let storeSecond = Store.create({
     foo: initialFoo
   });
 

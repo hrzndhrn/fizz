@@ -13,7 +13,7 @@ test('fizz: Store', function(t) {
 
   /* eslint-disable no-magic-numbers */
 
-  let store = new Store({data:1});
+  let store = Store.create({data:1});
 
   t.deepEqual( store.state(), {data:1}, 'store.state() === {"data":1}');
 

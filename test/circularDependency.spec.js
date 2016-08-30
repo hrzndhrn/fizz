@@ -8,9 +8,9 @@ import {Store} from '../src/fizz';
 
 test('fizz: circular dependency', function(t) {
 
-  let storeA = new Store({foo:1});
-  let storeB = new Store({foo:1});
-  let storeC = new Store({foo:1});
+  let storeA = Store.create({foo:1});
+  let storeB = Store.create({foo:1});
+  let storeC = Store.create({foo:1});
 
   storeA.dependsOn(storeB);
   storeB.dependsOn(storeC);
