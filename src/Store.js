@@ -14,7 +14,7 @@ let defaultMethod = function(obj: Object) {
   Object.assign(this, obj);
 }
 
-class Store {
+class Store{
   _state: State;
   _methods: Map<string, Method> = new Map();
   _onChangeCallbacks: Array<Callback> = [];

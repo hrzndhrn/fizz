@@ -13,11 +13,18 @@ module.exports = function (config) {
     // Available browser launchers:
     //   https://npmjs.org/browse/keyword/karma-launcher
     browsers: [
-      'Chrome',
+      'ChromeWithoutSecurity',
       // "Safari",
       // "Firefox",
       // "PhantomJS"
     ],
+
+    customLaunchers: {
+      ChromeWithoutSecurity: {
+        base: 'Chrome',
+        flags: ['--disable-web-security']
+      }
+    },
 
     // Frameworks to use
     // Available frameworks:
@@ -30,7 +37,6 @@ module.exports = function (config) {
       'test/*.spec.js'
     ],
 
-    // List of files to exclude.
     exclude: [
       'src/error.js'
     ],

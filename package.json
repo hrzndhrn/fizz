@@ -1,6 +1,6 @@
 {
   "name": "fizz-flux",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "A Flux compliant library for a unidirectional data flow.",
   "keywords": "extension Error",
   "author": "Marcus Kruse",
@@ -41,7 +41,7 @@
     "karma": "^1.1.1",
     "karma-browserify": "^5.1.0",
     "karma-chai": "^0.1.0",
-    "karma-chrome-launcher": "^1.0.1",
+    "karma-chrome-launcher": "^2.0.0",
     "karma-coverage": "^1.1.0",
     "karma-firefox-launcher": "^1.0.0",
     "karma-jasmine": "^1.0.2",
@@ -50,13 +50,13 @@
     "karma-phantomjs-launcher": "^1.0.1",
     "karma-safari-launcher": "^1.0.0",
     "karma-source-map-support": "^1.1.0",
-    "karma-tap": "^2.0.1",
+    "karma-tap": "^3.0.1",
     "karma-tap-reporter": "0.0.6",
     "tape": "^4.6.0",
     "watchify": "^3.7.0"
   },
   "dependencies": {
     "ObjectSnapshot": "^0.1.1",
-    "jsz-uid": "^0.2.0"
+    "jsz-id": "^0.2.2"
   }
 }
