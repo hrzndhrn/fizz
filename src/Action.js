@@ -1,7 +1,7 @@
 // @flow
 
 import {dispatch} from './dispatcher';
-import {uid} from 'jsz-uid';
+import {uid} from 'jsz-id';
 import {EMPTY_STRING} from 'jsz-string';
 import type {Payload} from './types';
 
