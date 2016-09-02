@@ -12,7 +12,7 @@ let create = false;
 
 let defaultMethod = function(obj: Object) {
   Object.assign(this, obj);
-}
+};
 
 class Store{
   _state: State;
