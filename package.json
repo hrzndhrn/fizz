@@ -57,6 +57,7 @@
   },
   "dependencies": {
     "ObjectSnapshot": "^0.1.1",
-    "jsz-id": "^0.2.2"
+    "jsz-id": "^0.2.2",
+    "jsz-isType": "^0.1.1"
   }
 }

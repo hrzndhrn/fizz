@@ -2,6 +2,7 @@
 
 import {dispatch} from './dispatcher';
 import {uid} from 'jsz-id';
+import {isPromise} from 'jsz-isType';
 import {EMPTY_STRING} from 'jsz-string';
 import type {Payload} from './types';
 
@@ -54,7 +55,12 @@ export class Action {
     // The result is some value or a promise.
     let result = this._method.apply( window, arguments);
 
-    if (result instanceof Promise) {
+    console.log('execute');
+    console.log(result);
+    console.log(result instanceof Promise);
+    console.log(isPromise(result));
+    if (isPromise(result)) {
+      console.log('>>>>>>>>>>>>>>>>>>>> promise');
       // The result is some promise.
       result
         .then(this._status)
@@ -75,10 +81,13 @@ export class Action {
   }
 
   _status(value: Payload|Response): Promise<Payload> {
-    let promise: Promise<any> = Promise.reject('An unexpected error occured');
+    let promise: Promise<any>;
+
+    console.log('_status');
 
     if (value instanceof Response) {
       if (value.status === HTTP.OK) {
+        console.log('get json');
         promise = value.json();
       } else {
         promise = Promise.reject(value);
@@ -105,6 +114,7 @@ export class Action {
       msg = 'Error in action! ' + reason;
     }
 
+    console.log(msg);
     throw new Error(msg);
   }
 
