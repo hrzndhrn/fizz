@@ -64,12 +64,15 @@ class Store{
     // apply the store function
     method.apply(this._state.object(), [payload]);
     if (this._state.hasChanges()) {
+      let state = this._state.data();
+
       this._onChangeCallbacks.forEach(function(callback) {
-        callback(this._state.data());
+        callback(state);
       }, this);
+
+      this._state.commit();
     }
 
-    this._state.commit();
   }
 
   onChange(callback: Callback, scope: Object = window) {
