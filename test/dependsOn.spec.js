@@ -23,11 +23,11 @@ test('fizz: dependsOn', function(t) {
     return {foo: value};
   });
 
-  let storeFirst = Store.create({
+  let storeFirst = Store.create('StoreFirst', {
     bar: initialFoo + 1
   });
 
-  let storeSecond = Store.create({
+  let storeSecond = Store.create('StoreSecond', {
     foo: initialFoo
   });
 

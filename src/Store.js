@@ -16,17 +16,28 @@ let defaultMethod = function(obj: Object) {
 
 class Store{
   _state: State;
+  _id: string;
   _methods: Map<string, Method> = new Map();
   _onChangeCallbacks: Array<Callback> = [];
   _dependsOn: Set<Store> = new Set();
 
-  constructor(object: Data) {
+  constructor(id: string, object: Data) {
     if (!create) {
       throw new Error('Issue #1 is not completed!');
     }
 
+    // check id
+    if (stores.some((store) => store.id() === id)) {
+      throw new Error(`A Store with id ${id} allready exists!`);
+    }
+
+    this._id = id;
     this._state = new State(object);
     stores.push(this);
+  }
+
+  id() {
+    return this._id;
   }
 
   state() {
@@ -100,9 +111,9 @@ class Store{
         (store) => store._checkCircularDependency(dependedStores));
   }
 
-  static create(data: Data): Store {
+  static create(id: string, data: Data): Store {
     create = true;
-    let store = new Store(data);
+    let store = new Store(id, data);
     create = false;
     return store;
   }

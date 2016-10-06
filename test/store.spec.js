@@ -13,11 +13,13 @@ test('fizz: Store', function(t) {
 
   /* eslint-disable no-magic-numbers */
 
-  let store = Store.create({data:1});
+  let store = Store.create('Store', {data:1});
 
   t.deepEqual( store.state(), {data:1}, 'store.state() === {"data":1}');
 
-  // --------------------------------------------------------------------------
+  t.throws(() => {let anotherStore = Store.create('Store', {x:1})},
+      /allready.exists/);
+
   t.end();
 
 });

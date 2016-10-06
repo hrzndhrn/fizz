@@ -17,7 +17,7 @@ test('fizz: promise', function(t) {
 
   });
 
-  let store = Store.create({
+  let store = Store.create('PromiseStore', {
     data:1
   }).register(setValue, function(response) {
     this.data = response.value;

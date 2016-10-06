@@ -7,7 +7,7 @@ import {aaSetPlanet, abSetPlanet} from './actions/helloPlanet';
 import {helloPlanet as store} from './stores/helloPlanet';
 import {view} from './views/helloPlanet';
 
-test.only('fizz: hello planet', function(t) {
+test('fizz: hello planet', function(t) {
 
   t.deepEqual( store.state(), {planet:'earth'},
       'storeHelloPlanet.state() === {"planet":"earth"}');
