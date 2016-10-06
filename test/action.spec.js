@@ -1,4 +1,5 @@
-//@flow
+// @flow
+
 'use strict';
 
 import {test} from 'tape';
@@ -11,12 +12,12 @@ test('fizz: Action', function(t) {
   t.ok(typeof Action === 'function',
       'Class Action is imported.');
 
-  let setValue = Action.create(function(value: number) {
+  let setValue = Action.create('SetValue', function(value: number) {
     return {value};
   });
 
   // type BadValue = (x:number) => void;
-  let badValue = Action.create(function(value: number) {
+  let badValue = Action.create('BadValue', function(value: number) {
     return setValue(value);
   });
 
@@ -31,7 +32,8 @@ test('fizz: Action', function(t) {
     new Action('FOO', function() {});
   }, /.*Use.Action.create.to.create.an.action.*/);
 
-  // --------------------------------------------------------------------------
+  t.throws(() => {Action.create('SetValue')}, /allready.exists/);
+
   t.end();
 
 });

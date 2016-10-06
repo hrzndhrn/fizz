@@ -8,7 +8,7 @@ import {Action,Store} from '../src/fizz';
 
 test('fizz: promise', function(t) {
 
-  let setValue = Action.create(function(value: number) {
+  let setValue = Action.create('promise.SetValue', function(value: number) {
     return new Promise(function(resolve) {
       window.setTimeout( function() {
         resolve({value});

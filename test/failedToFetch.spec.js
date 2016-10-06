@@ -8,7 +8,7 @@ import {Action} from '../src/fizz';
 
 test('fizz: Failed to fetch', function(t) {
 
-  let reverse = Action.create(function(str: string) {
+  let reverse = Action.create('fail.Reverse', function(str: string) {
     return fetch(
         '//not.on.this.planet:8000/worldPeace/' + encodeURI(str)
     );

@@ -1,6 +1,6 @@
 // @flow
+
 import {StateObjectSnapshot as State} from './StateObjectSnapshot';
-import {actionIds} from './Action';
 
 type Callback = (x:Object) => void;
 type Method = (x:Object) => void;
@@ -45,7 +45,7 @@ class Store{
   }
 
   register(action: Function, method: Method = defaultMethod) {
-    let actionName = actionIds.get(action);
+    let actionName = action._ACTION_ID_;
     if (actionName == null) {
       throw new Error('Action name is undefined!');
     }

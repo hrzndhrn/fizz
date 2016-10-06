@@ -19,7 +19,7 @@ test('fizz: dependsOn', function(t) {
     }
   }
 
-  let setFoo = Action.create(function(value: number) {
+  let setFoo = Action.create('SetFoo', function(value: number) {
     return {foo: value};
   });
 

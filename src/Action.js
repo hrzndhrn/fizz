@@ -1,7 +1,6 @@
 // @flow
 
 import {dispatch} from './dispatcher';
-import {uid} from 'jsz-id';
 import {isPromise} from 'jsz-isType';
 import {EMPTY_STRING} from 'jsz-string';
 import type {Payload} from './types';
@@ -13,7 +12,7 @@ const HTTP = {
 
 let busy = false;
 let create = false;
-export let actionIds: Map<Function,string> = new Map();
+export let actions: Map<string, Action> = new Map();
 
 function defaultMethod( obj: Object = {}): Object {
   // return Promise.resolve(obj);
@@ -111,16 +110,22 @@ export class Action {
     throw new Error(msg);
   }
 
-  // $FlowFixMe
-  static create<U:Function>(method: U = defaultMethod): U {
-    let id = uid();
+  // ??? FlowFixMe
+  // static create<U:Function>(id: string, method: U = defaultMethod): U {
+  static create(id: string, method: any = defaultMethod): any {
+    // check id
+    if (actions.has(id)) {
+      throw new Error(`Action with id ${id} allready exists!`);
+    }
 
     create = true;
-    // $FlowFixMe
-    let handler:U = new Action(id, method).handler();
+    let action = new Action(id, method);
     create = false;
 
-    actionIds.set(handler, id);
+    let handler = action.handler();
+    handler._ACTION_ID_ = id;
+
+    actions.set(id, action);
 
     return handler;
   }
