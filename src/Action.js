@@ -14,9 +14,8 @@ let busy = false;
 let create = false;
 export let actions: Map<string, Action> = new Map();
 
-function defaultMethod( obj: Object = {}): Object {
-  // return Promise.resolve(obj);
-  return obj;
+function defaultMethod(object: Object = {}): Object {
+  return object;
 }
 
 export class Action {

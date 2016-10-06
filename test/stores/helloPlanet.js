@@ -5,8 +5,8 @@ import {aaSetPlanet, abSetPlanet} from '../actions/helloPlanet';
 
 let helloPlanet: Store = Store.create('HelloPlanet', {
   'planet': 'earth'
-}).register(aaSetPlanet, function(state) {
-  this.planet = state.planet;
+}).register(aaSetPlanet, function(state, payload) {
+  return {...state, ...payload};
 }).register(abSetPlanet);
 
 export {helloPlanet}

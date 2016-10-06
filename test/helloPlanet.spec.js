@@ -16,7 +16,6 @@ test('fizz: hello planet', function(t) {
 
   let time1 = view.updated;
 
-  // console.log('actions ' + actions);
   aaSetPlanet('mars');
 
   t.deepEqual( store.state(), {planet:'mars'},
@@ -37,7 +36,7 @@ test('fizz: hello planet', function(t) {
 
   let time3 = view.updated;
 
-  t.true(time3 === time2, 'no updated in view');
+  t.true(time3 === time2, 'not updated in view');
 
   abSetPlanet({'planet': 'pluto'});
 

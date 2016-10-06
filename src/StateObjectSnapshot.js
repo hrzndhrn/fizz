@@ -24,6 +24,10 @@ class StateObjectSnapshot extends State{
     return this._state.hasChanges();
   }
 
+  update(state: any) {
+    Object.assign(this._state.observable(), state);
+  }
+
   commit() {
     this._state.commit();
   }

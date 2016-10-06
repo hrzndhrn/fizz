@@ -18,8 +18,8 @@ test.skip('fizz: fetch', function(t) {
 
   let store = Store.create('FetchStore', {
     data: 'foo'
-  }).register(reverse, function(response) {
-    this.data = response.data;
+  }).register(reverse, function(data, response) {
+    return {...data,...response};
   });
 
   store.onChange(function(state) {

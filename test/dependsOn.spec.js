@@ -34,12 +34,12 @@ test('fizz: dependsOn', function(t) {
   t.deepEqual(storeFirst.state(), {bar:2}, 'storeFirst inital state');
   t.deepEqual(storeSecond.state(), {foo:1}, 'storeFirst inital state');
 
-  storeSecond.register(setFoo, function(payload) {
-    this.foo = payload.foo;
+  storeSecond.register(setFoo, function(data, payload) {
+    return Object.assign({}, data, payload);
   });
 
-  storeFirst.register(setFoo, function() {
-    this.bar = storeSecond.state().foo +  1;
+  storeFirst.register(setFoo, function(data) {
+    return {...data, bar: storeSecond.state().foo + 1};
   });
 
   storeSecond.onChange(function(state) {

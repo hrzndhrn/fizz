@@ -8,6 +8,8 @@ import {Action,Store} from '../src/fizz';
 
 test('fizz: promise', function(t) {
 
+  t.plan(2);
+
   let setValue = Action.create('promise.SetValue', function(value: number) {
     return new Promise(function(resolve) {
       window.setTimeout( function() {
@@ -19,8 +21,8 @@ test('fizz: promise', function(t) {
 
   let store = Store.create('PromiseStore', {
     data:1
-  }).register(setValue, function(response) {
-    this.data = response.value;
+  }).register(setValue, function(state, response) {
+    return {...state, data: response.value};
   });
 
   store.onChange(function(state) {
@@ -28,7 +30,7 @@ test('fizz: promise', function(t) {
   });
 
   setValue(42).then(function() {
-    t.end();
+    t.true(true);
   });
 
 });

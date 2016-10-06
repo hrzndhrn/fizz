@@ -3,15 +3,16 @@
 import {StateObjectSnapshot as State} from './StateObjectSnapshot';
 
 type Callback = (x:Object) => void;
-type Method = (x:Object) => void;
+type Method = (data: Object, payload: Object) => Object;
 type Data = {[key: string]: any};
 
 let stores: Array<Store> = [];
 let busy = false;
 let create = false;
 
-let defaultMethod = function(obj: Object) {
-  Object.assign(this, obj);
+let defaultMethod:Method = function(data, payload) {
+  // Object.assign(this, obj);
+  return {...data, ...payload};
 };
 
 class Store{
@@ -73,7 +74,9 @@ class Store{
 
   _dispatch(method: Method, payload: Object) {
     // apply the store function
-    method.apply(this._state.object(), [payload]);
+    // method.apply(this._state.object(), [payload]);
+    this._state.update(method.apply(this, [this._state.data(), payload]));
+
     if (this._state.hasChanges()) {
       let state = this._state.data();
 

@@ -13,6 +13,8 @@ class State {
 
   commit(): void
 
+  update(state: any): void
+
   */
 }
 

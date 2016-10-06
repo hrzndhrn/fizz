@@ -17,6 +17,8 @@ test('fizz: Store', function(t) {
 
   t.deepEqual( store.state(), {data:1}, 'store.state() === {"data":1}');
 
+  /* eslint-disable no-unused-vars */
+
   t.throws(() => {let anotherStore = Store.create('Store', {x:1})},
       /allready.exists/);
 
