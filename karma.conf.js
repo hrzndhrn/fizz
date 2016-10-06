@@ -17,7 +17,7 @@ module.exports = function (config) {
       // 'ChromeWithoutSecurity',
       // "Safari",
       // 'FirefoxWithoutSecurity',
-      'Firefox',
+      // 'Firefox',
       // 'PhantomJS'
     ],
 

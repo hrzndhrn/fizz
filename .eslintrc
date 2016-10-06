@@ -1,0 +1,116 @@
+{
+  "extends": "eslint:recommended",
+
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+
+  "parser": "babel-eslint",
+
+  "plugins": [],
+
+  "parserOptions": {
+    "ecmaFeatures": {
+      "modules": true
+    }
+  },
+
+  "rules":{
+
+    //--------------------------------------------------------------------------
+    // Category: Possible Errors
+    //
+
+    // Allow calls to methods of the console object. Switched on in production
+    // mode.
+    "no-console": "off",
+
+
+    //--------------------------------------------------------------------------
+    // Category: Best Practices
+    //
+
+    // This rule requires return statements to either always or never specify
+    // values.
+    "consistent-return": "error",
+
+    // This rule is aimed at eliminating the type-unsafe equality operators.
+    "eqeqeq": ["error", "smart"],
+
+    // This rule is aimed at highlighting an unnecessary block of code following
+    // an if containing a return statement. As such, it will warn when it
+    // encounters an else following a chain of ifs, all of them containing a
+    // return statement.
+    // "no-else-return": "error",
+
+    // ‘Magic numbers’ are numbers that occur multiple time in code without an
+    // explicit meaning. They should preferably be replaced by named constants.
+    "no-magic-numbers": ["error", { "detectObjects": false,
+                                    "ignoreArrayIndexes": true,
+                                    "ignore": [-1,0,1,2]
+                                  }],
+
+    // Yoda conditions we will disalow.
+    "yoda": "error",
+
+
+    //--------------------------------------------------------------------------
+    // Category: Variables
+    //
+
+    // Only warn about unused vars.
+    "no-unused-vars": "warn",
+
+
+    //--------------------------------------------------------------------------
+    // Category: Node.js and CommonJS 
+    //
+
+    // This rule aims to prevent string concatenation of directory paths in 
+    // Node.js
+    "no-path-concat": "error",
+
+
+    //--------------------------------------------------------------------------
+    // Category: Stylistic Issues
+    //
+
+    // This rule enforces a consistent indentation style of 2 charcters.
+    "indent": ["error", 2, { "MemberExpression": 1,
+                             "VariableDeclarator": {
+                                "var": 2,
+                                "let": 2,
+                                "const": 3
+                           }}],
+
+    // This rule enforces a maximum line length to increase code readability and
+    // maintainability.
+    "max-len": ["error", 80],
+
+    // Disallow tabs.
+    "no-tabs": "error",
+
+    // Enforce use of double quotes.
+    "quotes": ["error", "single", {"allowTemplateLiterals": true,
+                                   "avoidEscape": true }],
+
+    //--------------------------------------------------------------------------
+    // Category: Stylistic Issues
+    //
+
+    // Disallow trailing whitespace at the end of lines.
+    "no-trailing-spaces": "warn",
+
+    // This rule disallows the renaming of import, export, and destructured
+    // assignments to the same name.
+    "no-useless-rename": "error",
+
+    // This rule is aimed at enforcing the use of either one variable or
+    // constant declaration or multiple declarations per function or block or
+    // scope
+    // "one-var": ["error", "always"],
+
+  }
+}
