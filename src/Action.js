@@ -15,7 +15,8 @@ let busy = false;
 let create = false;
 export let actionIds: Map<Function,string> = new Map();
 
-function defaultMethod( obj: Object): Object {
+function defaultMethod( obj: Object = {}): Object {
+  // return Promise.resolve(obj);
   return obj;
 }
 
@@ -64,6 +65,7 @@ export class Action {
     } else {
       // The result is the payload for this action.
       dispatch(this._id, result);
+      result = Promise.resolve(result);
     }
 
     busy = false;
