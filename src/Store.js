@@ -1,6 +1,16 @@
 // @flow
 
-import {StateObjectSnapshot as State} from './StateObjectSnapshot';
+import {StateObjectSnapshot} from './StateObjectSnapshot';
+import {StatePlainObject} from './StatePlainObject';
+
+let State: State;
+
+if ('Proxy' in window) {
+  State = StateObjectSnapshot;
+  State = StatePlainObject;
+} else {
+  State = StatePlainObject;
+}
 
 type Callback = (x:Object) => void;
 type Method = (data: Object, payload: Object) => Object;

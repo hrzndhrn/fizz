@@ -15,10 +15,10 @@ module.exports = function (config) {
     browsers: [
       'Chrome',
       // 'ChromeWithoutSecurity',
-      // "Safari",
+      'Safari',
       // 'FirefoxWithoutSecurity',
-      // 'Firefox',
-      // 'PhantomJS'
+      'Firefox',
+      'PhantomJS'
     ],
 
     /*
@@ -42,6 +42,7 @@ module.exports = function (config) {
     // List of files / patterns to load in the browser.
     files: [
       'node_modules/babel-polyfill/dist/polyfill.js',
+      'node_modules/whatwg-fetch/fetch.js',
       'test/*.spec.js'
     ],
 

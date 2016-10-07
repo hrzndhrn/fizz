@@ -1,3 +1,11 @@
+0.2.0 / 2016-10-07
+------------------
+- All stores need an id.
+- All actions need an id.
+- New signature for store dispatcher methods: 
+  ```state:Object, payload:Object => newState:Object```
+
+
 0.1.6 / 2016-09-01
 ------------------
 - Processing of fetch promises.

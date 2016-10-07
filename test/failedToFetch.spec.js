@@ -18,6 +18,7 @@ test('fizz: Failed to fetch', function(t) {
     t.fail('Action do not failed!');
     t.end();
   }).catch(function(reason) {
+    console.log('catch');
     t.true(/.*TypeError.*/.test(reason.toString()), reason.toString());
     t.end();
   });

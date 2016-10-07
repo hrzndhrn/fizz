@@ -52,7 +52,8 @@
     "karma-tap-reporter": "0.0.6",
     "mocha": "^3.0.2",
     "tape": "^4.6.0",
-    "watchify": "^3.7.0"
+    "watchify": "^3.7.0",
+    "whatwg-fetch": "^1.0.0"
   },
   "dependencies": {
     "ObjectSnapshot": "^0.1.1",

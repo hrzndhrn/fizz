@@ -2,7 +2,6 @@
 
 import {dispatch} from './dispatcher';
 import {isPromise} from 'jsz-isType';
-import {EMPTY_STRING} from 'jsz-string';
 import type {Payload} from './types';
 
 const HTTP = {
@@ -67,7 +66,6 @@ export class Action {
     }
 
     busy = false;
-
     return result;
   }
 
@@ -94,7 +92,9 @@ export class Action {
   _error(reason: any) {
     // TODO: Error handling
 
-    let msg = EMPTY_STRING;
+    /* eslint-disable no-unused-vars */
+    let msg = 'Unexpected error!';
+    /* eslint-enable */
 
     if (reason instanceof Response) {
       if (reason.ok) {
@@ -106,7 +106,7 @@ export class Action {
       msg = 'Error in action! ' + reason;
     }
 
-    throw new Error(msg);
+    // throw new Error(msg);
   }
 
   // ??? FlowFixMe

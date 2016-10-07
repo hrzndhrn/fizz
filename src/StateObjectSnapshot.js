@@ -16,10 +16,6 @@ class StateObjectSnapshot extends State{
     return this._state.immutable(keyPath);
   }
 
-  object(): any {
-    return this._state.observable();
-  }
-
   hasChanges() {
     return this._state.hasChanges();
   }

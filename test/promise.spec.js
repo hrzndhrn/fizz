@@ -31,6 +31,6 @@ test('fizz: promise', function(t) {
 
   setValue(42).then(function() {
     t.true(true);
-  });
+  }).catch(()=> true);
 
 });
